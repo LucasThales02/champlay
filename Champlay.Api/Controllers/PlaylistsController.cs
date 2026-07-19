@@ -27,6 +27,20 @@ public class PlaylistsController : ControllerBase
         return Ok(result.Models);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] SupabasePlaylist playlist)
+    {
+        await _supabase.Client.InitializeAsync();
+
+        playlist.Id = Guid.NewGuid();
+
+        var result = await _supabase.Client
+            .From<SupabasePlaylist>()
+            .Insert(playlist);
+
+        return Ok(result.Models.FirstOrDefault());
+    }
+
     [HttpGet("teste")]
     public async Task<IActionResult> Teste()
     {
