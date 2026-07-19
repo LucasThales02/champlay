@@ -38,7 +38,12 @@ public class PlaylistsController : ControllerBase
             .From<SupabasePlaylist>()
             .Insert(playlist);
 
-        return Ok(result.Models.FirstOrDefault());
+        return Ok(new
+        {
+            success = true,
+            id = playlist.Id,
+            name = playlist.Name
+        });
     }
 
     [HttpGet("teste")]
@@ -55,7 +60,7 @@ public class PlaylistsController : ControllerBase
             PlaylistUrl = "https://teste.com/lista.m3u"
         };
 
-        var result = await _supabase.Client
+        await _supabase.Client
             .From<SupabasePlaylist>()
             .Insert(playlist);
 
@@ -63,9 +68,31 @@ public class PlaylistsController : ControllerBase
         {
             success = true,
             id = playlist.Id,
+            userId = playlist.UserId,
             name = playlist.Name,
             type = playlist.Type,
             playlistUrl = playlist.PlaylistUrl
+        });
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _supabase.Client.InitializeAsync();
+
+        var playlist = new SupabasePlaylist
+        {
+            Id = id
+        };
+
+        await _supabase.Client
+            .From<SupabasePlaylist>()
+            .Delete(playlist);
+
+        return Ok(new
+        {
+            success = true,
+            id
         });
     }
 }
