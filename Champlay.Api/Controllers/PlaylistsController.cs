@@ -1,5 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Champlay.Api.Models;
+using Champlay.Api.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Champlay.Api.Controllers;
 
@@ -7,21 +8,36 @@ namespace Champlay.Api.Controllers;
 [Route("api/[controller]")]
 public class PlaylistsController : ControllerBase
 {
-    private static readonly List<Playlist> Playlists = [];
+    private readonly SupabaseService _supabase;
+
+    public PlaylistsController(SupabaseService supabase)
+    {
+        _supabase = supabase;
+    }
 
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-        return Ok(Playlists);
+        await _supabase.Client.InitializeAsync();
+
+        var result = await _supabase.Client
+            .From<SupabasePlaylist>()
+            .Get();
+
+        return Ok(result.Models);
     }
 
     [HttpPost]
-    public IActionResult Create(Playlist playlist)
+    public async Task<IActionResult> Create([FromBody] SupabasePlaylist playlist)
     {
+        await _supabase.Client.InitializeAsync();
+
         playlist.Id = Guid.NewGuid();
 
-        Playlists.Add(playlist);
+        var result = await _supabase.Client
+            .From<SupabasePlaylist>()
+            .Insert(playlist);
 
-        return Ok(playlist);
+        return Ok(result.Models.FirstOrDefault());
     }
 }
