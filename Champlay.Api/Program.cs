@@ -1,4 +1,5 @@
 using Champlay.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<SupabaseService>();
@@ -14,5 +15,7 @@ app.MapGet("/api/health", () => new
     application = "ChamPlay API",
     version = "1.0.0"
 });
+
+app.MapControllers();
 
 app.Run();
