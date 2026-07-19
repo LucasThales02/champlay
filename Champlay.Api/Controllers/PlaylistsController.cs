@@ -49,7 +49,7 @@ public class PlaylistsController : ControllerBase
         var playlist = new SupabasePlaylist
         {
             Id = Guid.NewGuid(),
-            UserId = Guid.NewGuid(),
+            UserId = Guid.Parse("36609942-e627-43d0-b901-d12ac3862139"),
             Name = "Lista Teste",
             Type = "m3u",
             PlaylistUrl = "https://teste.com/lista.m3u"
