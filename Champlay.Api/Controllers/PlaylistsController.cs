@@ -59,6 +59,13 @@ public class PlaylistsController : ControllerBase
             .From<SupabasePlaylist>()
             .Insert(playlist);
 
-        return Ok(result.Models);
+        return Ok(new
+        {
+            success = true,
+            id = playlist.Id,
+            name = playlist.Name,
+            type = playlist.Type,
+            playlistUrl = playlist.PlaylistUrl
+        });
     }
 }
