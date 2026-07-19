@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Champlay.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+147bc5560023e9348f40b66eff26b592d9921d05")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3f0fbd9c2724504f7e53f9d0af718ce58eb46f5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Champlay.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Champlay.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
