@@ -1,4 +1,8 @@
+using Champlay.Api.Services;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<SupabaseService>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
